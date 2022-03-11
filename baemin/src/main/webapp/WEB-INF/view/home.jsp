@@ -23,9 +23,8 @@
  
                          <input type="button" name="search" id="search_btn">
                       </div>
-                 </div>
-                 <%@ include file= "/WEB-INF/view/include/modifyaddress.jsp" %>
-                 
+                 <%@ include file ="/WEB-INF/view/include/modifyAddress.jsp" %>
+                 </div>                 
             </section>
             <section class="category_box">
                 <div class="box">
