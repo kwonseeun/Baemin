@@ -8,7 +8,7 @@ import com.web.baemin.vo.Join;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	UserDAO userDAO;
+	private UserDAO userDAO;
 
 	@Override
 	public void join(Join join) {

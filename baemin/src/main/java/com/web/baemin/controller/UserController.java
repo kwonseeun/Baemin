@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.web.baemin.service.UserService;
 import com.web.baemin.vo.Join;
-
-@Autowired
-private UserService userService;
 
 
 @Controller
 public class UserController {
+	
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/myPage")
 	public String myPage() {
