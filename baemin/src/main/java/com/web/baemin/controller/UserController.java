@@ -35,13 +35,11 @@ public class UserController {
 		return "user/login";
 	}
 	
-	/** join 단순 페이지 출력 */
 	@GetMapping("/join")
 	public String join() {
 		return "user/join";
 	}
 	
-	/**join 기능 */
 	@PostMapping("/join")
 	public String joinProc(@Valid Join join, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
