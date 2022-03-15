@@ -50,7 +50,6 @@ public class UserController {
 				String message = list.get(i).getDefaultMessage(); 
 				errorMsg.put(field, message);
 			}
-			System.out.println("join 접근");
 			model.addAttribute("errorMsg", errorMsg);
 			return "user/join";
 		}
@@ -59,7 +58,6 @@ public class UserController {
 		
 		return "redirect:/login";
 	}
-	
 	
 	@ResponseBody
 	@GetMapping("/overlapCheck")

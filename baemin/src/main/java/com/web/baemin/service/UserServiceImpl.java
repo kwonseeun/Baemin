@@ -1,10 +1,13 @@
 package com.web.baemin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.web.baemin.dao.UserDAO;
 import com.web.baemin.vo.Join;
 
+
+@Service
 public class UserServiceImpl implements UserService{
 
 	@Autowired
