@@ -99,15 +99,106 @@
 			
 		<!-- 메뉴 탭 -->	
         <ul class="menu">
-        
-        
-        
+        <c:forEach items="${store.foodList }" var="foodList" >
+	            <li>
+		            <c:if test="${adminPage && SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'ROLE_ADMIN' }">
+		                <label class="menu_delete_label">
+		                	<i class="fas fa-check-square" ></i>
+		                	<input type="checkbox" class="menu_delete_checkbox" name="deleteNumber" value="${foodList.id }">
+	                	</label>
+	                </c:if>
+	                
+	                <div class="menu_box">
+	                    <div>
+							<h2>${foodList.foodName } </h2>
+		                    
+   		                    <fm:formatNumber value="${foodList.foodPrice }" pattern="###,###" />원 
+		                    <input type="hidden" value="${foodList.storeId }" name="storeId" >
+				            <input type="hidden" value="${foodList.id }" name="foodId" class="food_id"   >
+				            <input type="hidden" value="${foodList.foodName }" name="foodName" class="food_name" >
+				            <input type="hidden" value="${foodList.foodPrice }" name="foodPrice" class="food_price"   >
+				            <input type="hidden" value="${foodList.foodDec }" name="foodDec" class="food_dec"   >
+				            <input type="hidden" value="${foodList.foodImg }" name="foodImg" class="food_img"   >
+				            <input type="hidden" value="${foodList.foodThumb }" name="foodThumb" class="food_thumb"   >
+		                </div>
+		                
+                    	<div><img src="${foodList.foodImg }" alt="이미지"></div>
+                    </div>
+	             </li>
+	        </c:forEach>
         </ul>
 		<!-- 메뉴 탭 -->	
 		
 		
 		<!-- 정보 탭 -->
 	    <ul class="info" >
+	    <li>
+    <div>
+        <h2>찾아 오시는 길</h2>
+        
+        <div id="map_box">
+            <div id="map"></div>
+            
+            <div id="position_box">
+                <button class="storePosition" ><i class="far fa-dot-circle"></i> 가게 위치로</button>
+                <button class="userPosition"> <i class="far fa-dot-circle"></i> 내 위치로</button>
+            </div>
+        </div>
+        
+        <h2>위치안내</h2>
+        <div id="store_address" data-address="${info.storeAddress2 }">${info.storeAddress2 }  ${info.storeAddress3 }</div>
+    </div>
+</li>
+ 
+<li>
+    <div>
+       <h2>가게 소개</h2>
+       <div>${info.storeDes }</div>
+   </div>
+</li>
+ 
+<li>
+    <div>
+        <h2>영업 정보</h2>
+        
+        <div class="info_detail_title">
+            <div>상호명</div>
+            <div>영업시간</div>
+            <div>전화번호</div>
+            
+        </div>
+        
+        <div class="info_detail">
+            <div>${info.storeName }</div>
+            <div>
+                <span><fm:formatNumber value="${info.openingTime }" minIntegerDigits="2" />시 ~</span>
+                <span><fm:formatNumber value="${info.closingTime }" minIntegerDigits="2" />시 </span>
+            </div>
+            <div>${info.storePhone }</div>
+            
+        </div>
+    </div>
+</li>
+ 
+<li>
+    <div>
+        <h2>가계 통계</h2>
+        <div class="info_detail_title">
+            <div>최근 주문수</div>
+            <div>전체 리뷰 수</div>
+            <div>찜</div>
+        </div>
+        
+        <div class="info_detail">
+            <%-- 
+            <div>${info.orderCount }</div>
+            <div>${info.reviewCount }</div>
+            <div>${info.likesCount }</div> 
+            --%>
+        </div>
+    </div>	
+</li>
+	    
 	    
 	    
 	    
@@ -136,6 +227,95 @@
 	<input type="hidden" value="${BMaddress.address2 }" id="delevery_address">
 	
 	
+	<script>
+    $(document).ready(function(){
+    	
+		var storeAddress = $("#store_address").data("address");
+        
+    	var storeName = $("#store_name").data("store_name");
+    	
+    	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    	
+    	mapOption = {
+    	    center: new kakao.maps.LatLng(33.25110701, 126.570667), // 지도의 중심좌표
+    	    level: 3 // 지도의 확대 레벨
+    	};  
+    	
+    	// 지도를 생성합니다    
+    	var map = new kakao.maps.Map(mapContainer, mapOption); 
+    	
+    	// 주소-좌표 변환 객체를 생성합니다	
+    	var geocoder = new kakao.maps.services.Geocoder();
+    	
+    	// 주소로 좌표를 검색합니다
+    	geocoder.addressSearch(storeAddress, function(result, status) {
+    		
+    	    // 정상적으로 검색이 완료됐으면 
+    	     if (status === kakao.maps.services.Status.OK) {
+    	
+    	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    	        
+    	        // 결과값으로 받은 위치를 마커로 표시합니다
+    	        var marker = new kakao.maps.Marker({
+    	            map: map,
+    	            position: coords
+    	        });
+    	
+    	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+    	        var infowindow = new kakao.maps.InfoWindow({
+    	            content: '<div style="width:150px;text-align:center;padding:3px 0;">' + storeName + '</div>'
+    	        });
+    	        infowindow.open(map, marker);
+    	
+    	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    	        map.setCenter(coords);
+    	        
+    	        
+    	        $(".storePosition").click(function(){
+    	        	map.panTo(coords);  
+    	        })
+    	        
+    	        
+    	    } 
+    			 
+    	});    
+    	
+    	
+    	var userAddress = $("#delevery_address").val();
+    	
+    	if(userAddress != "" ) {
+    		$(".userPosition").css("display" , "inline");
+    		
+    	  // 주소로 좌표를 검색합니다
+    	 	geocoder.addressSearch(userAddress, function(result, status) {
+    	 		
+    	 	    // 정상적으로 검색이 완료됐으면 
+    	 	     if (status === kakao.maps.services.Status.OK) {
+    	 	
+    	 	        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    	 	        
+    	 	        // 결과값으로 받은 위치를 마커로 표시합니다
+    	 	        var marker = new kakao.maps.Marker({
+    	 	            map: map,
+    	 	            position: coords
+    	 	        });
+    	 	        
+    	 	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+    	 	        var infowindow = new kakao.maps.InfoWindow({
+    	 	            content: '<div style="width:150px;text-align:center;padding:3px 0;">' + "배달받을위치" + '</div>'
+    	 	        });
+    	 	        infowindow.open(map, marker);
+    	 	        
+    	 	      	$(".userPosition").click(function(){
+    		        	map.panTo(coords);  
+    		        })
+    	 	    } 
+    	 	}); 
+    		 
+    	}
+    	
+        })
+	</script>
 	
 	
 	

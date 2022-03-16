@@ -10,4 +10,8 @@ public interface StoreDAO {
 	List<Store> storeList(Map<String, Object> map);
 	 
 	Store storeDetail(long storeId);
+	
+	List<Food> foodList(long storeId);
+	
+	List<FoodOption> foodOption(int foodId);
 }

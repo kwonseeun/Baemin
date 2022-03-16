@@ -24,4 +24,15 @@ public class StoreDAOImpl implements StoreDAO {
 	public Store storeDetail(long storeId) {
 		return sql.selectOne("store.storeDetail", storeId);
 	}
+
+	@Override
+	public List<Food> foodList(long id) {
+		return sql.selectList("store.foodList", id);
+	}
+	
+	@Override
+	public List<FoodOption> foodOption(int foodId) {
+		return sql.selectList("store.foodOption", foodId);
+	}
+
 }

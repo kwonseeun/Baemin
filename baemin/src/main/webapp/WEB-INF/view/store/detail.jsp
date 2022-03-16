@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/link.jsp"%>
 
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=앱키&libraries=services,clusterer,drawing"></script>
+
+
 <link rel="stylesheet" href="/css/modal.css">
 <link rel="stylesheet" href="/css/store/detail.css">
 

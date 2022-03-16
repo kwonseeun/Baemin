@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.baemin.dao.Food;
+import com.web.baemin.dao.FoodOption;
 import com.web.baemin.dao.StoreDAO;
 import com.web.baemin.store.StoreDetail;
 import com.web.baemin.vo.Store;
@@ -29,12 +31,17 @@ public class StoreServiceImpl implements StoreService{
 
 	@Override
 	public StoreDetail storeDetail(long storeId) {
-		Store storeInfo = storeDAO.storeDetail(storeId); 
+		Store storeInfo = storeDAO.storeDetail(storeId); 	
+		List<Food> foodList = storeDAO.foodList(storeId);
+	//	List<Review> reviewList = storeDAO.reviewList(storeId);
 		
-//		List<Food> foodList = storeDAO.foodList(storeId);
-//		List<Review> reviewList = storeDAO.reviewList(storeId);
-		
-		return new StoreDetail(storeInfo);
+		return new StoreDetail(storeInfo, foodList);
 
 	}
+	
+	@Override
+	public List<FoodOption> foodOption(int foodId) {
+		return storeDAO.foodOption(foodId);
+	}
+
 }

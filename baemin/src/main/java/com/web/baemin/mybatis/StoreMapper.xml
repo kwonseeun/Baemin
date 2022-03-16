@@ -12,4 +12,31 @@
 		SELECT * FROM BM_STORE WHERE ID = #{storeId}
 	</select>
 	
+	<select id="foodList" resultType="Food">
+		SELECT
+		    id,
+		    store_id,
+		    food_name,
+		    food_price,
+		    food_dec,
+		    food_img,
+		    food_thumb
+		FROM
+		    bm_food
+		WHERE
+			STORE_ID = #{id }    
+	</select>
+	
+	<select id="foodOption" resultType="FoodOption">
+		SELECT
+		    id,
+		    food_id,
+		    option_name,
+		    option_price
+		FROM
+		    bm_food_option
+		WHERE
+			food_id = #{foodId }    
+	</select>
+	
 </mapper>
