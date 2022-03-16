@@ -37,7 +37,12 @@ public class UserController {
 	
 	@GetMapping("/join")
 	public String join() {
-		return "user/join";
+		return "user/login";
+	}
+	
+	@PostMapping("/login")
+	public String loginProc() {
+		return "redirect:/";
 	}
 	
 	@PostMapping("/join")
@@ -53,7 +58,6 @@ public class UserController {
 			model.addAttribute("errorMsg", errorMsg);
 			return "user/join";
 		}
-		
 		userService.join(join);
 		
 		return "redirect:/login";

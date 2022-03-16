@@ -25,7 +25,7 @@
  
 	}
  
-	function modifyAddress() {
+	function ModifyAddress() {
 		new daum.Postcode(
 				{
 					oncomplete : function(data) {
