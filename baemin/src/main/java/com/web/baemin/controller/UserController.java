@@ -60,7 +60,7 @@ public class UserController {
 						
 				System.out.println("필드 = " + field);
 				System.out.println("메세지 = " +message);
-				
+			
 				errorMsg.put(field, message);
 			}
 			

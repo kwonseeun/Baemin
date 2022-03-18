@@ -15,6 +15,8 @@ public class UserDAOImpl implements UserDAO{
 	@Autowired
 	private SqlSession sql;
 	
+	public static String nameSpace = "com.web.baemin.dao";
+	
 	@Override
 	public void join(Join join) throws Exception {		
 		try {
