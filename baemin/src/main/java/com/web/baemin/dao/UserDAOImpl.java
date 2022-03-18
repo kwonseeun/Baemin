@@ -16,9 +16,13 @@ public class UserDAOImpl implements UserDAO{
 	private SqlSession sql;
 	
 	@Override
-	public void join(Join join) {
-		
-		sql.insert("user.join", join);
+	public void join(Join join) throws Exception {		
+		try {
+			sql.insert("user.join", join);		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -31,5 +35,4 @@ public class UserDAOImpl implements UserDAO{
 		
 		return sql.selectOne("user.overlapCheck", map);
 	}
-
 }

@@ -14,14 +14,17 @@ public class UserServiceImpl implements UserService{
 	private UserDAO userDAO;
 
 	@Override
-	public void join(Join join) {
-		userDAO.join(join);
+	public void join(Join join) throws Exception { 
+		try {
+			userDAO.join(join);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public int overlapCheck(String value, String valueType) {
+		
 		return userDAO.overlapCheck(value, valueType);
 	}
-	
-
 }

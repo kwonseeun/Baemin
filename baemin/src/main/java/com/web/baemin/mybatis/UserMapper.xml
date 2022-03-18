@@ -5,6 +5,15 @@
   
 <mapper namespace="user">
  
+ <select id="dualCheck" resultType="int">
+	 select '11' as id,
+			2 as username,
+	        3 as password,
+	        0 as email,
+	        0 as nickname
+	from dual;
+ </select>
+ 
 	<select id="overlapCheck" resultType="int">
 		SELECT COUNT(*) FROM BM_USER WHERE ${valueType} = #{value}
 	</select>
@@ -18,7 +27,6 @@
 			, NICKNAME
 			, PHONE
 		) VALUES (
-			USER_ID_SEQ.NEXTVAL
 			, #{username}
 			, #{password}
 			, #{email}

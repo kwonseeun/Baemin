@@ -37,7 +37,7 @@ public class UserController {
 	
 	@GetMapping("/join")
 	public String join() {
-		return "user/login";
+		return "user/join";
 	}
 	
 	@PostMapping("/login")
@@ -47,19 +47,26 @@ public class UserController {
 	
 	@PostMapping("/join")
 	public String joinProc(@Valid Join join, BindingResult bindingResult, Model model) {
+		System.out.println(join);
 		if(bindingResult.hasErrors()) {
+			System.out.println("에러");
+			
 			List<FieldError> list = bindingResult.getFieldErrors();
 			Map<String, String> errorMsg = new HashMap<>();
+			
 			for(int i=0;i<list.size();i++) {
 				String field = list.get(i).getField(); 
 				String message = list.get(i).getDefaultMessage(); 
+						
+				System.out.println("필드 = " + field);
+				System.out.println("메세지 = " +message);
+				
 				errorMsg.put(field, message);
 			}
+			
 			model.addAttribute("errorMsg", errorMsg);
 			return "user/join";
 		}
-		userService.join(join);
-		
 		return "redirect:/login";
 	}
 	

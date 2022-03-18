@@ -51,8 +51,6 @@ const isSubmit = (function(){
  
  
  
- 
- 
 function overlapCheck(data) {
 	
 	let isUseable = false;
